@@ -13,10 +13,10 @@ const Shop = () => {
 
   // Lista de produtos com exemplo de roupas
   const products = [
-    { id: 1, name: 'Black T-shirt', price: 49.90, img: '/camiseta-preta.jpg' },
-    { id: 2, name: 'Jeans', price: 89.90, img: '/calca-jeans.jpg' },
-    { id: 3, name: 'Leather Jacket', price: 199.90, img: '/jaqueta-couro.jpg' },
-    { id: 4, name: 'White Sneakers', price: 159.90, img: '/tenis-branco.jpg' },
+    { id: 1, name: 'Graffiti T-shirt', price: 59.90, img: '/banner3.jpg' },
+    { id: 2, name: 'Urban Jeans', price: 120.90, img: '/banner4.jpg' },
+    { id: 3, name: 'Street Leather Jacket', price: 299.90, img: '/banner8.jpg' },
+    { id: 4, name: 'Classic Sneakers', price: 159.90, img: '/banner9.jpg' },
   ];
 
   const addToCart = (product) => {
@@ -68,7 +68,7 @@ const Shop = () => {
         }
 
         .title {
-          font-size: 32px;
+          font-size: 36px;
           font-weight: bold;
           color: #dfa54b;
           margin-bottom: 40px;
@@ -77,31 +77,29 @@ const Shop = () => {
         .products-list {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 20px;
+          gap: 40px; /* Espaçamento entre as caixas */
           justify-items: center;
         }
 
         .product-card {
           background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 10px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border: 2px solid #dfa54b; /* Borda dourada em volta das caixas */
+          border-radius: 15px;
           overflow: hidden;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
           width: 100%;
           max-width: 300px;
+          box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra nas caixas */
         }
 
         .product-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 6px 12px rgba(218, 165, 32, 0.7);
+          box-shadow: 0 10px 20px rgba(218, 165, 32, 0.7); /* Efeito de hover */
         }
 
         .product-img-container {
-          height: 200px;
+          height: 250px;
           background-color: #f4f4f4;
-          cursor: pointer;
-          transition: box-shadow 0.3s ease;
         }
 
         .product-img {
@@ -111,35 +109,38 @@ const Shop = () => {
         }
 
         .product-info {
-          padding: 15px;
+          padding: 20px;
+          background-color: #fff; /* Branco para contraste com a imagem */
         }
 
         .product-name {
-          font-size: 18px;
+          font-size: 20px;
           font-weight: bold;
           margin-bottom: 10px;
           color: #333;
         }
 
         .product-price {
-          font-size: 16px;
+          font-size: 18px;
           color: #666;
         }
 
         .add-to-cart-button {
+          margin-top: 15px;
           padding: 10px 20px;
           background-color: #dfa54b;
           color: #000;
           border: none;
           border-radius: 5px;
           cursor: pointer;
-          transition: background-color 0.3s ease;
-          margin-top: 10px;
+          transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .add-to-cart-button:hover {
           background-color: #fff;
-          color: #000;
+          color: #dfa54b;
+          border: 2px solid #dfa54b;
+          transform: translateY(-2px); /* Pequeno efeito de hover */
         }
       `}</style>
     </div>
@@ -147,10 +148,5 @@ const Shop = () => {
 };
 
 export default Shop;
-
-
-
-
-
 
 
