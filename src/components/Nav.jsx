@@ -3,28 +3,29 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/logo.png'; // Caminho para a imagem da logo
 import cart from '/cart.png'; // Caminho para a imagem do cart
+import user from '/user.png'; // Caminho para o ícone de usuário
 
 const NavContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #000;
-    padding: 1rem;
+    padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 `;
 
 const Logo = styled.img`
     object-fit: contain;
+    width: 80px;
 `;
 
 const NavLinks = styled.div`
     display: flex;
-    gap: 2rem;  /* Espaçamento entre os links */
+    gap: 2rem;
     justify-content: center;
-    flex: 1;  /* Faz os links ocuparem o centro */
+    flex: 1;
 
-    /* Esconde os links em telas menores */
     @media (max-width: 768px) {
         display: none;
     }
@@ -59,29 +60,20 @@ const NavLink = styled(Link)`
     }
 `;
 
-const LogoutButton = styled.button`
-    background-color: transparent;
-    color: #dfa54b;
-    border: 2px solid #dfa54b;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-
-    &:hover {
-        background-color: #dfa54b;
-        color: #fff;
-        border-color: #dfa54b;
-    }
-
+const CartIcon = styled.img`
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
     @media (max-width: 768px) {
         display: none;
     }
 `;
 
-const CartIcon = styled.img`
+const UserIcon = styled.img`
     vertical-align: middle;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
     @media (max-width: 768px) {
         display: none;
     }
@@ -101,7 +93,7 @@ const HamburgerMenu = styled.div`
 const Sidebar = styled.div`
     position: fixed;
     top: 0;
-    right: ${(props) => (props.isOpen ? '0' : '-250px')};  /* Mover a sidebar para a direita */
+    right: ${(props) => (props.isOpen ? '0' : '-250px')};
     width: 250px;
     height: 100%;
     background-color: #000;
@@ -109,7 +101,6 @@ const Sidebar = styled.div`
     transition: right 0.3s ease;
     z-index: 1000;
     padding: 2rem;
-
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -128,50 +119,43 @@ const SidebarLinks = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    align-items: center;
 `;
 
-const SidebarLogoutButton = styled(LogoutButton)`
-    display: block;
-    width: 100%;
+const SidebarIcon = styled.img`
+    width: 30px;
+    height: 30px;
 `;
 
 const Nav = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const getUsuario = sessionStorage.getItem('usuario');
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('usuario');
-    sessionStorage.removeItem('senha');
-    alert('Saindo da Sessão !!!');
-    navigate('/');
   };
 
   return (
     <>
       <NavContainer>
         <Link to="/">
-          <Logo src={logo} alt="PowerRide Logo" width={80} />
+          <Logo src={logo} alt="Logo" />
         </Link>
 
-        {/* Links de navegação centralizados */}
         <NavLinks>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/login">Login</NavLink>
         </NavLinks>
 
-        {/* Esconde carrinho e logout em telas menores */}
-        <div className="right-section" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+        {/* Ícones de carrinho e usuário */}
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <Link to="/cart">
             <CartIcon src={cart} alt="Cart" />
           </Link>
-          <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+          <Link to="/user">
+            <UserIcon src={user} alt="User" />
+          </Link>
         </div>
 
         {/* Hamburger Menu para abrir a sidebar em telas menores */}
@@ -186,12 +170,13 @@ const Nav = () => {
           <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/login">Login</NavLink>
+          {/* Ícones de carrinho e usuário na sidebar */}
           <Link to="/cart">
-            <Logo src={cart} alt="Cart" />
+            <SidebarIcon src={cart} alt="Cart" />
           </Link>
-          {/* Botão de logout na sidebar */}
-          <SidebarLogoutButton onClick={handleLogout}>Logout</SidebarLogoutButton>
+          <Link to="/user">
+            <SidebarIcon src={user} alt="User" />
+          </Link>
         </SidebarLinks>
       </Sidebar>
     </>
@@ -199,3 +184,6 @@ const Nav = () => {
 };
 
 export default Nav;
+
+
+

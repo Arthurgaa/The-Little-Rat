@@ -1,170 +1,157 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  background-color: #111;
+  padding: 40px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #dfa54b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #fff;
+`;
+
+const Form = styled.form`
+  width: 100%;
+`;
+
+const Input = styled.input`
+  width: 85%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #222;
+  color: #fff;
+
+  &:focus {
+    border-color: #dfa54b;
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  background-color: #dfa54b;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 85%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #fff;
+    color: #dfa54b;
+  }
+`;
+
+const SignupText = styled.p`
+  margin-top: 20px;
+  color: #fff;
+`;
+
+const SignupLink = styled.span`
+  color: #dfa54b;
+  cursor: pointer;
+  text-decoration: underline;
+`;
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // Validação para garantir que o formulário só pode ser enviado se ambos os campos estiverem preenchidos
   const isFormValid = email !== '' && password !== '';
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Simulação de autenticação simples
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (user && user.email === email && password === 'password123') {
       alert('Login successful! Welcome back.');
-      navigate('/');
+      localStorage.setItem('isLoggedIn', true);
+      navigate('/user');
     } else {
       alert('Invalid email or password.');
     }
   };
 
+  const closeModal = () => {
+    navigate('/');
+  };
+
   return (
-    <div style={modalOverlayStyle}>
-      <div style={modalContentStyle}>
-        {/* Botão de fechar o modal */}
-        <button onClick={() => navigate(-1)} style={modalCloseButtonStyle}>
-          &times;
-        </button>
-
-        {/* Título */}
-        <h2 style={modalTitleStyle}>Login</h2>
-
-        {/* Formulário */}
-        <form onSubmit={handleLogin} style={formStyle}>
-          {/* Campo de email */}
-          <input
+    <ModalOverlay>
+      <ModalContent>
+        <CloseButton onClick={closeModal}>&times;</CloseButton>
+        <Title>Login</Title>
+        <Form onSubmit={handleLogin}>
+          <Input
             type="email"
             placeholder="Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={inputStyle}
             required
           />
-          {/* Campo de senha */}
-          <input
+          <Input
             type="password"
             placeholder="Your Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={inputStyle}
             required
           />
-          {/* Botão de Login */}
-          <button
-            type="submit"
-            style={isFormValid ? buttonStyle : disabledButtonStyle}
-            disabled={!isFormValid}
-          >
+          <Button type="submit" disabled={!isFormValid}>
             Login
-          </button>
-        </form>
-
-        {/* Link para cadastro */}
-        <p style={signupTextStyle}>
+          </Button>
+        </Form>
+        <SignupText>
           Don't have an account?{' '}
-          <span
-            onClick={() => navigate('/register')}
-            style={signupLinkStyle}
-          >
-            Sign Up
-          </span>
-        </p>
-      </div>
-    </div>
+          <SignupLink onClick={() => navigate('/register')}>Sign Up</SignupLink>
+        </SignupText>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 
-// Estilos do modal
-const modalOverlayStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo semitransparente
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center', // Centraliza verticalmente e horizontalmente
-  zIndex: 1000,
-};
-
-const modalContentStyle = {
-  backgroundColor: '#fff',
-  padding: '40px',
-  borderRadius: '10px',
-  width: '100%',
-  maxWidth: '400px',
-  textAlign: 'center',
-  position: 'relative',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Sombra suave para destacar o modal
-};
-
-const modalCloseButtonStyle = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  fontSize: '24px',
-  color: '#000',
-  background: 'none',
-  border: 'none',
-  cursor: 'pointer',
-  fontWeight: 'bold',
-};
-
-const modalTitleStyle = {
-  marginBottom: '20px',
-  fontSize: '24px',
-  color: '#333',
-};
-
-const formStyle = {
-  width: '100%',
-  textAlign: 'center',
-};
-
-const inputStyle = {
-  width: '85%', // Diminui a largura dos inputs para 85% do contêiner
-  padding: '10px', // Ajusta o padding para não exagerar o tamanho dos campos
-  marginBottom: '15px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-  fontSize: '16px',
-};
-
-const buttonStyle = {
-  backgroundColor: '#dfa54b',
-  color: '#000',
-  border: 'none',
-  padding: '12px 20px',
-  borderRadius: '4px',
-  cursor: 'pointer',
-  width: '85%', // Faz o botão ter a mesma largura que os campos de input
-  fontSize: '16px',
-};
-
-const disabledButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: '#ddd', // Cor diferente para o botão desabilitado
-  color: '#aaa',
-  cursor: 'not-allowed',
-};
-
-const signupTextStyle = {
-  marginTop: '20px',
-  color: '#333',
-};
-
-const signupLinkStyle = {
-  color: '#dfa54b',
-  cursor: 'pointer',
-  textDecoration: 'underline',
-};
-
 export default Login;
+
+
 
 
