@@ -28,7 +28,7 @@ const Nav = () => {
           </button>
 
           <div className="buttons" style={buttonContainerStyle}>
-            <button onClick={() => navigate('/login')} style={buttonStyle}>Login</button>
+            <button onClick={() => navigate('/login')} style={buttonStyle}>Sign In</button>
             <button onClick={() => navigate('/register')} style={buttonStyle}>Sign Up</button>
           </div>
         </div>
