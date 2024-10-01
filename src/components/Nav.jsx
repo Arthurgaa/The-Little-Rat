@@ -54,7 +54,7 @@ const navBarStyle = {
   alignItems: 'center',
   padding: '0 40px',
   backgroundColor: '#000',
-  color: '#daa520',
+  color: '#dfa54b',
   width: '100%',
 };
 
@@ -72,7 +72,7 @@ const centeredMenuStyle = {
 };
 
 const linkStyle = {
-  color: '#daa520',
+  color: '#dfa54b',
   textDecoration: 'none',
   fontSize: '1.2rem',
   transition: 'all 0.2s ease',
@@ -96,9 +96,9 @@ const cartButtonStyle = {
 };
 
 const buttonStyle = {
-  backgroundColor: '#daa520',
+  backgroundColor: '#dfa54b',
   color: '#000',
-  border: '2px solid #daa520',
+  border: '2px solid #dfa54b',
   padding: '8px 16px',
   borderRadius: '4px',
   cursor: 'pointer',

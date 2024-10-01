@@ -18,7 +18,7 @@ const SocialIcons = styled.div`
 `;
 
 const IconLink = styled.a`
-  color: #daa520;
+  color: #dfa54b;
   font-size: 1.5rem;
   transition: color 0.3s;
   &:hover {
@@ -27,7 +27,7 @@ const IconLink = styled.a`
 `;
 
 const FooterLink = styled.a`
-  color: #daa520;
+  color: #dfa54b;
   text-decoration: none;
   margin: 0 1rem;
   &:hover {
@@ -36,7 +36,7 @@ const FooterLink = styled.a`
 `;
 
 const FooterBottom = styled.div`
-  color: #daa520;
+  color: #dfa54b;
   font-size: 1rem;
   margin-top: 1rem;
 `;
@@ -57,7 +57,7 @@ const CheeseIcon = styled.img`
 const CheeseText = styled.p`
   font-size: 1.2rem;
   font-style: italic;
-  color: #daa520;
+  color: #dfa54b;
 `;
 
 const Divider = styled.hr`

@@ -16,7 +16,7 @@ const About = () => {
       <h1 style={{
         fontSize: '36px',
         fontWeight: 'bold',
-        color: '#daa520',
+        color: '#dfa54b',
         marginBottom: '20px',
       }}>The Little Rat: A Story of Brotherhood, Tennis, and Timeless Style</h1>
 

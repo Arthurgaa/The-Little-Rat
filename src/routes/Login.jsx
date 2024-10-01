@@ -137,7 +137,7 @@ const inputStyle = {
 };
 
 const buttonStyle = {
-  backgroundColor: '#daa520',
+  backgroundColor: '#dfa54b',
   color: '#000',
   border: 'none',
   padding: '12px 20px',
@@ -160,7 +160,7 @@ const signupTextStyle = {
 };
 
 const signupLinkStyle = {
-  color: '#daa520',
+  color: '#dfa54b',
   cursor: 'pointer',
   textDecoration: 'underline',
 };

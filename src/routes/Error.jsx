@@ -18,7 +18,7 @@ const Error = () => {
       <p>Desculpe, algo deu errado.</p>
       <p>{error?.statusText || error?.message}</p>
       <Link to="/" style={{
-        backgroundColor: '#daa520',
+        backgroundColor: '#dfa54b',
         color: '#000',
         padding: '10px 20px',
         borderRadius: '5px',

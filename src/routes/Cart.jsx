@@ -108,7 +108,7 @@ const productDetailsStyle = {
 const productNameStyle = {
   fontSize: '18px',
   fontWeight: 'bold',
-  color: '#daa520',
+  color: '#dfa54b',
 };
 
 const productPriceStyle = {
@@ -134,7 +134,7 @@ const totalContainerStyle = {
 
 const checkoutButtonStyle = {
   padding: '10px 20px',
-  backgroundColor: '#daa520',
+  backgroundColor: '#dfa54b',
   color: '#000',
   border: 'none',
   borderRadius: '5px',

@@ -70,7 +70,7 @@ const Shop = () => {
         .title {
           font-size: 32px;
           font-weight: bold;
-          color: #daa520;
+          color: #dfa54b;
           margin-bottom: 40px;
         }
 
@@ -128,7 +128,7 @@ const Shop = () => {
 
         .add-to-cart-button {
           padding: 10px 20px;
-          background-color: #daa520;
+          background-color: #dfa54b;
           color: #000;
           border: none;
           border-radius: 5px;
