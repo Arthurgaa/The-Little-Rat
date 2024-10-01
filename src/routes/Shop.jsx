@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 const Shop = () => {
   const [cart, setCart] = useState([]);
 
-  // Lista de produtos com exemplo de roupas em inglês
+  // Carregar o carrinho do localStorage quando o componente é montado
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Lista de produtos com exemplo de roupas
   const products = [
     { id: 1, name: 'Black T-shirt', price: 49.90, img: '/camiseta-preta.jpg' },
     { id: 2, name: 'Jeans', price: 89.90, img: '/calca-jeans.jpg' },
@@ -13,7 +20,9 @@ const Shop = () => {
   ];
 
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Armazena o carrinho no localStorage
     alert(`${product.name} added to cart!`);
   };
 
@@ -49,19 +58,19 @@ const Shop = () => {
         }
 
         .shop-container {
-          width: 100%; /* Garante que ocupe 100% da largura da tela */
+          width: 100%;
           margin: 0;
           padding: 100px 20px 20px;
           text-align: center;
-          background-color: #111; /* Fundo preto */
-          color: #fff; /* Texto branco */
-          min-height: 100vh; /* Garante que ocupe 100% da altura da tela */
+          background-color: #111;
+          color: #fff;
+          min-height: 100vh;
         }
 
         .title {
           font-size: 32px;
           font-weight: bold;
-          color: #daa520; /* Título em dourado */
+          color: #daa520;
           margin-bottom: 40px;
         }
 
@@ -85,7 +94,7 @@ const Shop = () => {
 
         .product-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 6px 12px rgba(218, 165, 32, 0.7); /* Hover em dourado */
+          box-shadow: 0 6px 12px rgba(218, 165, 32, 0.7);
         }
 
         .product-img-container {
@@ -117,7 +126,6 @@ const Shop = () => {
           color: #666;
         }
 
-        /* Botão "Add to Cart" */
         .add-to-cart-button {
           padding: 10px 20px;
           background-color: #daa520;
@@ -139,6 +147,7 @@ const Shop = () => {
 };
 
 export default Shop;
+
 
 
 

@@ -12,18 +12,25 @@ const Nav = () => {
           <img src="/logo.png" alt="Logo" style={{ maxWidth: '100px' }} />
         </div>
 
-        {/* Menu Desktop */}
-        <ul className="nav-list" style={desktopMenuStyle}>
+        {/* Menu Centralizado */}
+        <ul className="nav-list" style={centeredMenuStyle}>
           <li><Link to="/" style={linkStyle}>Home</Link></li>
           <li><Link to="/shop" style={linkStyle}>Shop</Link></li>
           <li><Link to="/about" style={linkStyle}>About</Link></li>
           <li><Link to="/contact" style={linkStyle}>Contact</Link></li>
         </ul>
 
-        {/* Botões de Login e Sign Up */}
-        <div className="buttons" style={buttonContainerStyle}>
-          <button onClick={() => navigate('/login')} style={buttonStyle}>Login</button>
-          <button onClick={() => navigate('/register')} style={buttonStyle}>Sign Up</button>
+        {/* Ícone do Carrinho e Botões de Login e Sign Up */}
+        <div style={navRightContainerStyle}>
+          {/* Ícone do Carrinho */}
+          <button onClick={() => navigate('/cart')} style={cartButtonStyle}>
+            <img src="/cart.png" alt="Cart" style={{ maxWidth: '30px' }} />
+          </button>
+
+          <div className="buttons" style={buttonContainerStyle}>
+            <button onClick={() => navigate('/login')} style={buttonStyle}>Login</button>
+            <button onClick={() => navigate('/register')} style={buttonStyle}>Sign Up</button>
+          </div>
         </div>
       </div>
     </header>
@@ -33,7 +40,7 @@ const Nav = () => {
 // Estilos
 const headerStyle = {
   width: '100%',
-  position: 'relative',  // Não usa mais position: fixed
+  position: 'relative',
   top: 0,
   left: 0,
   zIndex: 1000,
@@ -51,14 +58,17 @@ const navBarStyle = {
   width: '100%',
 };
 
-const desktopMenuStyle = {
+// Centraliza os itens do menu horizontalmente
+const centeredMenuStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   listStyle: 'none',
   gap: '40px',
-  flexGrow: 1,
   margin: 0,
+  position: 'absolute',
+  left: '50%',
+  transform: 'translateX(-50%)',
 };
 
 const linkStyle = {
@@ -73,6 +83,18 @@ const buttonContainerStyle = {
   gap: '10px',
 };
 
+const navRightContainerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '20px',
+};
+
+const cartButtonStyle = {
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+};
+
 const buttonStyle = {
   backgroundColor: '#daa520',
   color: '#000',
@@ -83,4 +105,5 @@ const buttonStyle = {
 };
 
 export default Nav;
+
 
