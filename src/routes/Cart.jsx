@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Obtenção dos itens do carrinho armazenados no localStorage
@@ -9,15 +11,20 @@ const Cart = () => {
     setCart(storedCart);
   }, []);
 
-  // Cálculo do preço total
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const updateQuantity = (index, newQuantity) => {
+    const updatedCart = [...cart];
+    updatedCart[index].quantity = newQuantity;
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualiza o localStorage
+  };
 
-  // Função para remover itens do carrinho
   const removeFromCart = (indexToRemove) => {
     const updatedCart = cart.filter((_, index) => index !== indexToRemove);
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualiza o localStorage
   };
+
+  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <div style={cartStyle}>
@@ -32,11 +39,17 @@ const Cart = () => {
                 <img src={item.img} alt={item.name} style={productImageStyle} />
                 <div style={productDetailsStyle}>
                   <span style={productNameStyle}>{item.name}</span>
-                  <span style={productPriceStyle}>${item.price.toFixed(2)}</span>
-                  <button
-                    onClick={() => removeFromCart(index)}
-                    style={removeButtonStyle}
-                  >
+                  <span style={productPriceStyle}>${(item.price * item.quantity).toFixed(2)}</span>
+                  <label htmlFor="quantity" style={quantityLabelStyle}>Quantity:</label>
+                  <input
+                    type="number"
+                    id="quantity"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
+                    style={quantityInputStyle}
+                  />
+                  <button onClick={() => removeFromCart(index)} style={removeButtonStyle}>
                     Remove
                   </button>
                 </div>
@@ -45,7 +58,9 @@ const Cart = () => {
           </ul>
           <div style={totalContainerStyle}>
             <h2>Total: ${totalPrice.toFixed(2)}</h2>
-            <button style={checkoutButtonStyle}>Proceed to Checkout</button>
+            <button onClick={() => navigate('/payment')} style={checkoutButtonStyle}>
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       )}
@@ -117,6 +132,22 @@ const productPriceStyle = {
   color: '#fff',
 };
 
+const quantityLabelStyle = {
+  marginTop: '10px',
+  fontSize: '16px',
+  color: '#fff',
+};
+
+const quantityInputStyle = {
+  width: '50px',
+  marginTop: '5px',
+  padding: '5px',
+  borderRadius: '5px',
+  border: '1px solid #555',
+  backgroundColor: '#444',
+  color: '#fff',
+};
+
 const removeButtonStyle = {
   marginTop: '10px',
   backgroundColor: '#ff4d4f',
@@ -142,5 +173,6 @@ const checkoutButtonStyle = {
 };
 
 export default Cart;
+
 
 

@@ -10,6 +10,8 @@ import About from './routes/About.jsx';
 import Contact from './routes/Contact.jsx';
 import Cart from './routes/Cart.jsx'; 
 import Error from './routes/Error.jsx';
+import Payment from './routes/Payment.jsx';
+import Pix from './routes/Pix.jsx'
 
 // Configuração das rotas
 const router = createBrowserRouter([
@@ -25,6 +27,9 @@ const router = createBrowserRouter([
       { path: '/contact', element: <Contact /> }, // Contact (Contato)
       { path: '/register', element: <Register /> }, // Register (Cadastro)
       { path: '/cart', element: <Cart /> }, // Cart (Carrinho)
+      { path: '/payment', element: <Payment /> },
+      { path: '/pix', element: <Pix /> }
+
     ]
   }
 ]);
