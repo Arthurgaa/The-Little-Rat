@@ -75,7 +75,7 @@ const linkStyle = {
   color: '#dfa54b',
   textDecoration: 'none',
   fontSize: '1.2rem',
-  transition: 'all 0.2s ease',
+  transition: 'color 0.3s ease',
 };
 
 const buttonContainerStyle = {
@@ -93,6 +93,7 @@ const cartButtonStyle = {
   backgroundColor: 'transparent',
   border: 'none',
   cursor: 'pointer',
+  transition: 'transform 0.3s ease, filter 0.3s ease', // Adiciona hover no carrinho
 };
 
 const buttonStyle = {
@@ -102,8 +103,24 @@ const buttonStyle = {
   padding: '8px 16px',
   borderRadius: '4px',
   cursor: 'pointer',
+  transition: 'background-color 0.3s ease, color 0.3s ease',
 };
 
+// Adiciona hover nos links, botões e no ícone do carrinho
+const styleTag = document.createElement('style');
+styleTag.innerHTML = `
+  a:hover {
+    color: #fff !important; /* Hover branco nos links */
+  }
+  button:hover {
+    background-color: #fff !important; /* Hover branco nos botões */
+    color: #dfa54b !important; /* Texto dourado */
+  }
+  button img:hover {
+    transform: scale(1.1); /* Aumenta o ícone do carrinho no hover */
+    filter: brightness(1.2); /* Efeito de brilho no ícone */
+  }
+`;
+document.head.appendChild(styleTag);
+
 export default Nav;
-
-
