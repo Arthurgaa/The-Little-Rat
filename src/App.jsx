@@ -1,24 +1,56 @@
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import { Outlet } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* Navbar no topo */}
+    <div>
+      {/* Componente Nav */}
       <Nav />
       
-      {/* Outlet (conteúdo da página) ocupa o espaço flexível */}
-      <div style={{ flexGrow: 1 }}>
-        <Outlet />
-      </div>
-      
-      {/* Footer no final da página */}
+      {/* Outlet para carregar as páginas */}
+      <Outlet />
+
+      {/* Componente Footer */}
       <Footer />
+
+      {/* Estilos Globais */}
+      <style jsx="true" global="true">{`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body, html {
+          width: 100%;
+          overflow-x: hidden; /* Previne o scroll horizontal */
+          background-color: #111; /* Fundo padrão */
+          color: #fff; /* Cor do texto padrão */
+          font-family: 'Arial', sans-serif;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit; /* Assegura que links mantenham a cor definida */
+        }
+
+        ul {
+          list-style: none; /* Remove bullets das listas */
+        }
+
+        button {
+          cursor: pointer;
+          border: none;
+        }
+      `}</style>
     </div>
   );
-}
+};
 
 export default App;
+
+
 
 

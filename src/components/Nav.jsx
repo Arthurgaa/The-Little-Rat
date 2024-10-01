@@ -1,37 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Nav = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();  // Usando o hook de navegação
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const navigate = useNavigate();
 
   return (
-    <header style={{ width: '100%', position: 'fixed', top: 0, left: 0, zIndex: 1000 }}>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '20px 40px',
-        backgroundColor: '#000',
-        color: '#daa520',
-      }}>
+    <header style={headerStyle}>
+      <div style={navBarStyle}>
+        {/* Logo */}
         <div className="logo">
           <img src="/logo.png" alt="Logo" style={{ maxWidth: '100px' }} />
         </div>
 
         {/* Menu Desktop */}
-        <ul style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          listStyle: 'none',
-          gap: '40px',
-          flexGrow: 1,
-        }}>
+        <ul className="nav-list" style={desktopMenuStyle}>
           <li><Link to="/" style={linkStyle}>Home</Link></li>
           <li><Link to="/shop" style={linkStyle}>Shop</Link></li>
           <li><Link to="/about" style={linkStyle}>About</Link></li>
@@ -39,21 +21,44 @@ const Nav = () => {
         </ul>
 
         {/* Botões de Login e Sign Up */}
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="buttons" style={buttonContainerStyle}>
           <button onClick={() => navigate('/login')} style={buttonStyle}>Login</button>
           <button onClick={() => navigate('/register')} style={buttonStyle}>Sign Up</button>
         </div>
-
-        {/* Menu Mobile */}
-        <div style={{ display: 'none' }} className="mobile-menu-icon">
-          <button onClick={toggleMenu} style={{ backgroundColor: 'transparent', border: 'none' }}>
-            <img src={isOpen ? "/close.png" : "/menu.png"} alt="Menu Icon" style={{ maxWidth: '40px' }} />
-          </button>
-        </div>
       </div>
-
     </header>
   );
+};
+
+// Estilos
+const headerStyle = {
+  width: '100%',
+  position: 'relative',  // Não usa mais position: fixed
+  top: 0,
+  left: 0,
+  zIndex: 1000,
+  backgroundColor: '#000',
+  padding: '10px 0',
+};
+
+const navBarStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '0 40px',
+  backgroundColor: '#000',
+  color: '#daa520',
+  width: '100%',
+};
+
+const desktopMenuStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  listStyle: 'none',
+  gap: '40px',
+  flexGrow: 1,
+  margin: 0,
 };
 
 const linkStyle = {
@@ -61,6 +66,11 @@ const linkStyle = {
   textDecoration: 'none',
   fontSize: '1.2rem',
   transition: 'all 0.2s ease',
+};
+
+const buttonContainerStyle = {
+  display: 'flex',
+  gap: '10px',
 };
 
 const buttonStyle = {
@@ -72,45 +82,5 @@ const buttonStyle = {
   cursor: 'pointer',
 };
 
-const modalStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const modalContentStyle = {
-  backgroundColor: '#fff',
-  padding: '20px',
-  borderRadius: '8px',
-  width: '300px',
-  textAlign: 'center',
-};
-
-const modalCloseButton = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  cursor: 'pointer',
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '10px',
-  margin: '10px 0',
-  border: '1px solid #ddd',
-  borderRadius: '4px',
-};
-
 export default Nav;
-
-
-
-
-
 

@@ -51,7 +51,7 @@ const Shop = () => {
         .shop-container {
           width: 100%; /* Garante que ocupe 100% da largura da tela */
           margin: 0;
-          padding: 150px 20px 20px; /* Adicionado mais padding-top para mais espaço */
+          padding: 100px 20px 20px;
           text-align: center;
           background-color: #111; /* Fundo preto */
           color: #fff; /* Texto branco */
@@ -139,6 +139,8 @@ const Shop = () => {
 };
 
 export default Shop;
+
+
 
 
 
