@@ -93,8 +93,8 @@ const HamburgerMenu = styled.div`
 const Sidebar = styled.div`
     position: fixed;
     top: 0;
-    right: ${(props) => (props.isOpen ? '0' : '-250px')};
-    width: 250px;
+    right: ${(props) => (props.isOpen ? '0' : '-300px')};
+    width: 300px;
     height: 100%;
     background-color: #000;
     color: #fff;
@@ -134,6 +134,11 @@ const Nav = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Função para fechar a sidebar
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <>
       <NavContainer>
@@ -166,15 +171,15 @@ const Nav = () => {
       <Sidebar isOpen={isSidebarOpen}>
         <CloseButton onClick={toggleSidebar}>X</CloseButton>
         <SidebarLinks>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/shop">Shop</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink to="/" onClick={closeSidebar}>Home</NavLink>
+          <NavLink to="/shop" onClick={closeSidebar}>Shop</NavLink>
+          <NavLink to="/about" onClick={closeSidebar}>About</NavLink>
+          <NavLink to="/contact" onClick={closeSidebar}>Contact</NavLink>
           {/* Ícones de carrinho e usuário na sidebar */}
-          <Link to="/cart">
+          <Link to="/cart" onClick={closeSidebar}>
             <SidebarIcon src={cart} alt="Cart" />
           </Link>
-          <Link to="/user">
+          <Link to="/user" onClick={closeSidebar}>
             <SidebarIcon src={user} alt="User" />
           </Link>
         </SidebarLinks>
@@ -184,6 +189,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-
-
