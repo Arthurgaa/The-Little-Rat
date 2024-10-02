@@ -13,16 +13,33 @@ const Shop = () => {
 
   // Lista de produtos com exemplo de roupas
   const products = [
-    { id: 1, name: 'Graffiti T-shirt', price: 59.90, img: '/banner3.jpg' },
-    { id: 2, name: 'Urban Jeans', price: 120.90, img: '/banner4.jpg' },
-    { id: 3, name: 'Street Leather Jacket', price: 299.90, img: '/banner8.jpg' },
-    { id: 4, name: 'Classic Sneakers', price: 159.90, img: '/banner9.jpg' },
+    { id: 1, name: 'Graffiti T-shirt', price: 59.9, img: '/banner3.jpg' },
+    { id: 2, name: 'Urban Jeans', price: 120.9, img: '/banner4.jpg' },
+    { id: 3, name: 'Street Leather Jacket', price: 299.9, img: '/banner8.jpg' },
+    { id: 4, name: 'Classic Sneakers', price: 159.9, img: '/banner9.jpg' },
   ];
 
   const addToCart = (product) => {
-    const updatedCart = [...cart, product];
+    // Verificar se o produto já está no carrinho
+    const existingProductIndex = cart.findIndex((item) => item.id === product.id);
+    let updatedCart;
+
+    if (existingProductIndex !== -1) {
+      // Se o produto já estiver no carrinho, incrementar a quantidade
+      updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity += 1;
+    } else {
+      // Se não, adicionar o produto com quantidade 1
+      updatedCart = [...cart, { ...product, quantity: 1 }];
+    }
+
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart)); // Armazena o carrinho no localStorage
+
+    // Dispatch custom event
+    const event = new Event('cartUpdated');
+    window.dispatchEvent(event);
+
     alert(`${product.name} added to cart!`);
   };
 
@@ -44,7 +61,10 @@ const Shop = () => {
             <div className="product-info">
               <h2 className="product-name">{product.name}</h2>
               <p className="product-price">${product.price.toFixed(2)}</p>
-              <button className="add-to-cart-button" onClick={() => addToCart(product)}>
+              <button
+                className="add-to-cart-button"
+                onClick={() => addToCart(product)}
+              >
                 Add to Cart
               </button>
             </div>
@@ -148,5 +168,3 @@ const Shop = () => {
 };
 
 export default Shop;
-
-

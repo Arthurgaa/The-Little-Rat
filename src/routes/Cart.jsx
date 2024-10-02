@@ -8,7 +8,12 @@ const Cart = () => {
   useEffect(() => {
     // Obtenção dos itens do carrinho armazenados no localStorage
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCart(storedCart);
+    // Definir quantidade padrão de 1 para itens sem quantidade
+    const initializedCart = storedCart.map((item) => ({
+      ...item,
+      quantity: item.quantity || 1,
+    }));
+    setCart(initializedCart);
   }, []);
 
   const updateQuantity = (index, newQuantity) => {
@@ -16,15 +21,26 @@ const Cart = () => {
     updatedCart[index].quantity = newQuantity;
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualiza o localStorage
+
+    // Dispatch custom event
+    const event = new Event('cartUpdated');
+    window.dispatchEvent(event);
   };
 
   const removeFromCart = (indexToRemove) => {
     const updatedCart = cart.filter((_, index) => index !== indexToRemove);
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualiza o localStorage
+
+    // Dispatch custom event
+    const event = new Event('cartUpdated');
+    window.dispatchEvent(event);
   };
 
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
     <div style={cartStyle}>
@@ -36,20 +52,36 @@ const Cart = () => {
           <ul style={cartListStyle}>
             {cart.map((item, index) => (
               <li key={index} style={cartItemStyle}>
-                <img src={item.img} alt={item.name} style={productImageStyle} />
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  style={productImageStyle}
+                />
                 <div style={productDetailsStyle}>
                   <span style={productNameStyle}>{item.name}</span>
-                  <span style={productPriceStyle}>${(item.price * item.quantity).toFixed(2)}</span>
-                  <label htmlFor="quantity" style={quantityLabelStyle}>Quantity:</label>
+                  <span style={productPriceStyle}>
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </span>
+                  <label
+                    htmlFor={`quantity-${index}`}
+                    style={quantityLabelStyle}
+                  >
+                    Quantity:
+                  </label>
                   <input
                     type="number"
-                    id="quantity"
+                    id={`quantity-${index}`}
                     value={item.quantity}
                     min="1"
-                    onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
+                    onChange={(e) =>
+                      updateQuantity(index, parseInt(e.target.value))
+                    }
                     style={quantityInputStyle}
                   />
-                  <button onClick={() => removeFromCart(index)} style={removeButtonStyle}>
+                  <button
+                    onClick={() => removeFromCart(index)}
+                    style={removeButtonStyle}
+                  >
                     Remove
                   </button>
                 </div>
@@ -58,7 +90,10 @@ const Cart = () => {
           </ul>
           <div style={totalContainerStyle}>
             <h2>Total: ${totalPrice.toFixed(2)}</h2>
-            <button onClick={() => navigate('/payment')} style={checkoutButtonStyle}>
+            <button
+              onClick={() => navigate('/payment')}
+              style={checkoutButtonStyle}
+            >
               Proceed to Checkout
             </button>
           </div>
@@ -173,6 +208,3 @@ const checkoutButtonStyle = {
 };
 
 export default Cart;
-
-
-
