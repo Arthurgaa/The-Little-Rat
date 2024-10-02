@@ -116,14 +116,15 @@ const SaveButton = styled.button`
 const LogoutButton = styled.button`
   background-color: #FF4C4C;
   color: #fff;
-  padding: 12px 25px;
+  padding: 10px 20px;
   border: 2px solid #FF0000;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 10%;
+  width: auto;
+  max-width: 150px;
 
   &:hover {
     background-color: #FF0000;
@@ -148,7 +149,7 @@ const User = () => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       const storedProfilePicture = localStorage.getItem('profilePicture');
-      setUser({ ...storedUser, profilePicture: storedProfilePicture || '/default-avatar.png' });
+      setUser({ ...storedUser, profilePicture: storedProfilePicture || '/default-profile.png' });
     } else {
       navigate('/login'); // Se o usuário não estiver logado, redireciona para o login
     }
