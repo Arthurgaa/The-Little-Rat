@@ -148,24 +148,41 @@ const User = () => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
-      const storedProfilePicture = localStorage.getItem('profilePicture');
-      setUser({ ...storedUser, profilePicture: storedProfilePicture || '/default-profile.png' });
+      setUser({ ...storedUser });
     } else {
       navigate('/login'); // Se o usuário não estiver logado, redireciona para o login
     }
   }, [navigate]);
 
+  // Função para salvar as alterações
   const handleSaveChanges = () => {
     localStorage.setItem('user', JSON.stringify(user));
     alert('Profile updated successfully!');
     setIsEditing(false); // Salva as mudanças e sai do modo de edição
   };
 
+  // Função para fazer logout
   const handleLogout = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('profilePicture');
     alert('Logged out successfully!');
     navigate('/login'); // Redireciona para a página de login
+  };
+
+  // Função para lidar com a mudança da foto de perfil
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Verifica se o arquivo é uma imagem
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setUser({ ...user, profilePicture: reader.result });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert('Please select a valid image file.');
+      }
+    }
   };
 
   return (
@@ -174,7 +191,7 @@ const User = () => {
         <ProfileCard>
           <ProfileWrapper>
             <ProfileImageContainer>
-              <ProfileImage src={user.profilePicture} alt="Profile" />
+              <ProfileImage src={user.profilePicture || '/default-profile.png'} alt="Profile" />
             </ProfileImageContainer>
           </ProfileWrapper>
 
@@ -213,6 +230,14 @@ const User = () => {
                     onChange={(e) => setUser({ ...user, password: e.target.value })}
                   />
                 </label>
+                <label>
+                  Profile Picture:
+                  <InputField
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                  />
+                </label>
               </form>
               <SaveButton type="button" onClick={handleSaveChanges}>
                 Save Changes
@@ -229,4 +254,3 @@ const User = () => {
 };
 
 export default User;
-

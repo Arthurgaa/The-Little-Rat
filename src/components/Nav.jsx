@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/logo.png'; // Caminho para a imagem da logo
-import cart from '/cart.png'; // Caminho para a imagem do cart
-import user from '/user.png'; // Caminho para o ícone de usuário
+import cart from '/cart.png'; // Caminho para a imagem do carrinho
+import defaultUserIcon from '/user.png'; // Caminho para o ícone padrão de usuário
 
 const NavContainer = styled.nav`
     display: flex;
@@ -74,6 +74,8 @@ const UserIcon = styled.img`
     cursor: pointer;
     width: 30px;
     height: 30px;
+    border-radius: 50%; /* Para tornar a imagem circular */
+    object-fit: cover;
     @media (max-width: 768px) {
         display: none;
     }
@@ -129,6 +131,15 @@ const SidebarIcon = styled.img`
 
 const Nav = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [user, setUser] = useState(null); // Estado para armazenar o usuário logado
+
+  // Carrega os dados do usuário ao montar o componente
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -159,7 +170,11 @@ const Nav = () => {
             <CartIcon src={cart} alt="Cart" />
           </Link>
           <Link to="/user">
-            <UserIcon src={user} alt="User" />
+            {user && user.profilePicture ? (
+              <UserIcon src={user.profilePicture} alt="User" />
+            ) : (
+              <UserIcon src={defaultUserIcon} alt="User" />
+            )}
           </Link>
         </div>
 
@@ -180,7 +195,11 @@ const Nav = () => {
             <SidebarIcon src={cart} alt="Cart" />
           </Link>
           <Link to="/user" onClick={closeSidebar}>
-            <SidebarIcon src={user} alt="User" />
+            {user && user.profilePicture ? (
+              <SidebarIcon src={user.profilePicture} alt="User" />
+            ) : (
+              <SidebarIcon src={defaultUserIcon} alt="User" />
+            )}
           </Link>
         </SidebarLinks>
       </Sidebar>
