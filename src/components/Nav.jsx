@@ -64,8 +64,13 @@ const CartIcon = styled.img`
   vertical-align: middle;
   width: 30px;
   height: 30px;
+
   @media (max-width: 768px) {
     display: none;
+  }
+
+  &:hover {
+    filter: brightness(0) invert(1);
   }
 `;
 
@@ -76,8 +81,18 @@ const UserIcon = styled.img`
   height: 30px;
   border-radius: 50%; /* Para tornar a imagem circular */
   object-fit: cover;
+
   @media (max-width: 768px) {
     display: none;
+  }
+
+  /* Aplicar hover apenas se isDefaultIcon for verdadeiro */
+  &:hover {
+    ${(props) =>
+      props.isDefaultIcon &&
+      `
+      filter: brightness(0) invert(1);
+    `}
   }
 `;
 
@@ -127,6 +142,22 @@ const SidebarLinks = styled.div`
 const SidebarIcon = styled.img`
   width: 30px;
   height: 30px;
+
+  ${(props) =>
+    props.isPersonalizedImage &&
+    `
+    border-radius: 50%;
+    object-fit: cover;
+  `}
+
+  /* Aplicar hover branco nos ícones padrão */
+  &:hover {
+    ${(props) =>
+      props.isDefaultIcon &&
+      `
+      filter: brightness(0) invert(1);
+    `}
+  }
 `;
 
 const Nav = () => {
@@ -196,9 +227,17 @@ const Nav = () => {
           </Link>
           <Link to="/user">
             {user && user.profilePicture ? (
-              <UserIcon src={user.profilePicture} alt="User" />
+              <UserIcon
+                src={user.profilePicture}
+                alt="User"
+                isDefaultIcon={false}
+              />
             ) : (
-              <UserIcon src={defaultUserIcon} alt="User" />
+              <UserIcon
+                src={defaultUserIcon}
+                alt="User"
+                isDefaultIcon={true}
+              />
             )}
           </Link>
         </div>
@@ -225,13 +264,28 @@ const Nav = () => {
           </NavLink>
           {/* Ícones de carrinho e usuário na sidebar */}
           <Link to="/cart" onClick={closeSidebar}>
-            <SidebarIcon src={cartIcon} alt="Cart" />
+            <SidebarIcon
+              src={cartIcon}
+              alt="Cart"
+              isDefaultIcon={true}
+              isPersonalizedImage={false}
+            />
           </Link>
           <Link to="/user" onClick={closeSidebar}>
             {user && user.profilePicture ? (
-              <SidebarIcon src={user.profilePicture} alt="User" />
+              <SidebarIcon
+                src={user.profilePicture}
+                alt="User"
+                isDefaultIcon={false}
+                isPersonalizedImage={true}
+              />
             ) : (
-              <SidebarIcon src={defaultUserIcon} alt="User" />
+              <SidebarIcon
+                src={defaultUserIcon}
+                alt="User"
+                isDefaultIcon={true}
+                isPersonalizedImage={false}
+              />
             )}
           </Link>
         </SidebarLinks>
