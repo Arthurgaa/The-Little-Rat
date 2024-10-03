@@ -157,6 +157,10 @@ const User = () => {
   // Função para salvar as alterações
   const handleSaveChanges = () => {
     localStorage.setItem('user', JSON.stringify(user));
+
+    // Dispara o evento 'userUpdated' para notificar o Nav
+    window.dispatchEvent(new Event('userUpdated'));
+
     alert('Profile updated successfully!');
     setIsEditing(false); // Salva as mudanças e sai do modo de edição
   };
@@ -164,6 +168,10 @@ const User = () => {
   // Função para fazer logout
   const handleLogout = () => {
     localStorage.removeItem('user');
+
+    // Dispara o evento 'userUpdated' para notificar o Nav
+    window.dispatchEvent(new Event('userUpdated'));
+
     alert('Logged out successfully!');
     navigate('/login'); // Redireciona para a página de login
   };
@@ -191,7 +199,10 @@ const User = () => {
         <ProfileCard>
           <ProfileWrapper>
             <ProfileImageContainer>
-              <ProfileImage src={user.profilePicture || '/default-profile.png'} alt="Profile" />
+              <ProfileImage
+                src={user.profilePicture || '/default-profile.png'}
+                alt="Profile"
+              />
             </ProfileImageContainer>
           </ProfileWrapper>
 
@@ -201,7 +212,9 @@ const User = () => {
                 <ProfileInfo>Name: {user.name}</ProfileInfo>
                 <ProfileInfo>Email: {user.email}</ProfileInfo>
               </InfoWrapper>
-              <EditButton onClick={() => setIsEditing(true)}>Edit Profile</EditButton>
+              <EditButton onClick={() => setIsEditing(true)}>
+                Edit Profile
+              </EditButton>
             </>
           ) : (
             <>
@@ -219,7 +232,9 @@ const User = () => {
                     type="email"
                     placeholder="Email"
                     value={user.email}
-                    onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, email: e.target.value })
+                    }
                   />
                 </label>
                 <label>
@@ -227,7 +242,9 @@ const User = () => {
                     type="password"
                     placeholder="New Password"
                     value={user.password}
-                    onChange={(e) => setUser({ ...user, password: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, password: e.target.value })
+                    }
                   />
                 </label>
                 <label>

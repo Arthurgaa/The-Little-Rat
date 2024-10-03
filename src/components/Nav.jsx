@@ -175,6 +175,12 @@ const Nav = () => {
     setCartItemCount(itemCount);
   };
 
+  // Função para atualizar o usuário
+  const handleUserUpdate = () => {
+    const updatedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(updatedUser);
+  };
+
   useEffect(() => {
     // Carrega os dados do usuário ao montar o componente
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -188,9 +194,13 @@ const Nav = () => {
     // Adiciona um listener para o evento personalizado 'cartUpdated'
     window.addEventListener('cartUpdated', updateCartItemCount);
 
-    // Limpa o listener quando o componente é desmontado
+    // Adiciona um listener para o evento personalizado 'userUpdated'
+    window.addEventListener('userUpdated', handleUserUpdate);
+
+    // Limpa os listeners quando o componente é desmontado
     return () => {
       window.removeEventListener('cartUpdated', updateCartItemCount);
+      window.removeEventListener('userUpdated', handleUserUpdate);
     };
   }, []);
 
