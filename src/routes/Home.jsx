@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const [isShopButtonHovered, setIsShopButtonHovered] = useState(false);
+
   return (
     <div style={styles.homeContainer}>
       {/* Seção de Destaque */}
       <section style={styles.heroSection}>
         <div style={styles.overlay}></div>
-        <img 
-          src="/banner5.jpg" 
-          alt="Main Banner" 
-          style={styles.mainBannerImage} 
+        <img
+          src="/banner5.jpg"
+          alt="Main Banner"
+          style={styles.mainBannerImage}
         />
         <div style={styles.heroText}>
           <h1 style={styles.heroTitle}>Welcome to The Little Rat!</h1>
@@ -32,14 +34,27 @@ const Home = () => {
         {/* Espaçamento entre galeria e botão "Shop Now" */}
         <div style={styles.shopNowSection}>
           <Link to="/shop" style={styles.shopLink}>
-            <button style={styles.shopButton}>Shop Now</button>
+            <button
+              style={{
+                ...styles.shopButton,
+                ...(isShopButtonHovered ? styles.shopButtonHover : {}),
+              }}
+              onMouseEnter={() => setIsShopButtonHovered(true)}
+              onMouseLeave={() => setIsShopButtonHovered(false)}
+            >
+              Shop Now
+            </button>
           </Link>
         </div>
       </section>
 
       {/* Seção de Logo */}
       <section style={styles.logoSection}>
-        <img src="/logo2.png" alt="The Little Rat Logo" style={styles.logoImage} />
+        <img
+          src="/logo2.png"
+          alt="The Little Rat Logo"
+          style={styles.logoImage}
+        />
       </section>
     </div>
   );
@@ -144,17 +159,19 @@ const styles = {
     padding: '12px 28px',
     backgroundColor: '#dfa54b',
     color: '#000',
-    border: 'none',
-    borderRadius: '8px',
+    border: '2px solid transparent', // Adiciona uma borda transparente
+    borderRadius: '5px',
     cursor: 'pointer',
     fontSize: '1.2rem',
-    transition: 'background-color 0.3s ease, transform 0.3s',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+    transition:
+      'background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease',
+    boxSizing: 'border-box', // Garante que o padding e a borda sejam incluídos no tamanho total
   },
   shopButtonHover: {
     backgroundColor: '#fff',
     color: '#dfa54b',
-    transform: 'scale(1.05)',
+    borderColor: '#dfa54b', // Altera apenas a cor da borda
+    transform: 'translateY(-2px)',
   },
   logoSection: {
     marginTop: '50px',
@@ -190,9 +207,3 @@ const styles = {
 };
 
 export default Home;
-
-
-
-
-
-

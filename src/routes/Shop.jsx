@@ -150,16 +150,17 @@ const Shop = () => {
           padding: 10px 20px;
           background-color: #dfa54b;
           color: #000;
-          border: none;
+          border: 2px solid transparent; /* Borda transparente para manter o tamanho */
           border-radius: 5px;
           cursor: pointer;
-          transition: background-color 0.3s ease, transform 0.3s ease;
+          transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+          box-sizing: border-box; /* Inclui borda e padding no tamanho total */
         }
 
         .add-to-cart-button:hover {
           background-color: #fff;
           color: #dfa54b;
-          border: 2px solid #dfa54b;
+          border-color: #dfa54b; /* Altera apenas a cor da borda */
           transform: translateY(-2px); /* Pequeno efeito de hover */
         }
       `}</style>

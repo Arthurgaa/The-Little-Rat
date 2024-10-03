@@ -139,9 +139,47 @@ const LogoutButton = styled.button`
   }
 `;
 
+/* Componentes para o campo de upload personalizado */
+const FileInputWrapper = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1rem;
+`;
+
+const FileInputLabel = styled.label`
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #dfa54b;
+  font-size: 1rem;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444;
+  }
+`;
+
+const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+const FileName = styled.span`
+  display: block;
+  margin-top: 0.5rem;
+  color: #ccc;
+  font-size: 0.9rem;
+  text-align: center;
+`;
+
 const User = () => {
   const [user, setUser] = useState(null); // Estado para armazenar o usuário logado
   const [isEditing, setIsEditing] = useState(false);
+  const [fileName, setFileName] = useState('No file selected'); // Estado para o nome do arquivo
   const navigate = useNavigate();
 
   // Verificação do status de login
@@ -184,12 +222,19 @@ const User = () => {
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setUser({ ...user, profilePicture: reader.result });
+          setUser((prevUser) => ({
+            ...prevUser,
+            profilePicture: reader.result,
+          }));
         };
         reader.readAsDataURL(file);
+        setFileName(file.name); // Atualiza o nome do arquivo
       } else {
         alert('Please select a valid image file.');
+        setFileName('No file selected');
       }
+    } else {
+      setFileName('No file selected');
     }
   };
 
@@ -224,7 +269,9 @@ const User = () => {
                     type="text"
                     placeholder="Name"
                     value={user.name}
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    onChange={(e) =>
+                      setUser((prevUser) => ({ ...prevUser, name: e.target.value }))
+                    }
                   />
                 </label>
                 <label>
@@ -233,7 +280,7 @@ const User = () => {
                     placeholder="Email"
                     value={user.email}
                     onChange={(e) =>
-                      setUser({ ...user, email: e.target.value })
+                      setUser((prevUser) => ({ ...prevUser, email: e.target.value }))
                     }
                   />
                 </label>
@@ -243,18 +290,22 @@ const User = () => {
                     placeholder="New Password"
                     value={user.password}
                     onChange={(e) =>
-                      setUser({ ...user, password: e.target.value })
+                      setUser((prevUser) => ({ ...prevUser, password: e.target.value }))
                     }
                   />
                 </label>
-                <label>
-                  Profile Picture:
-                  <InputField
+                <FileInputWrapper>
+                  <FileInputLabel htmlFor="fileInput">
+                    Choose File
+                  </FileInputLabel>
+                  <HiddenFileInput
+                    id="fileInput"
                     type="file"
                     accept="image/*"
                     onChange={handleProfilePictureChange}
                   />
-                </label>
+                  <FileName>{fileName}</FileName>
+                </FileInputWrapper>
               </form>
               <SaveButton type="button" onClick={handleSaveChanges}>
                 Save Changes
