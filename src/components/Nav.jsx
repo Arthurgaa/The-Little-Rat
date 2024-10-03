@@ -160,6 +160,38 @@ const SidebarIcon = styled.img`
   }
 `;
 
+/* Badge para o contador no navbar */
+const NavBadge = styled.div`
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 1px 4px;
+  font-size: 10px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+/* Badge para o contador na sidebar */
+const SidebarBadge = styled.div`
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 1px 4px;
+  font-size: 10px;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
 const Nav = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState(null); // Estado para armazenar o usuário logado
@@ -231,9 +263,7 @@ const Nav = () => {
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <Link to="/cart" style={{ position: 'relative' }}>
             <CartIcon src={cartIcon} alt="Cart" />
-            {cartItemCount > 0 && (
-              <div style={badgeStyle}>{cartItemCount}</div>
-            )}
+            {cartItemCount > 0 && <NavBadge>{cartItemCount}</NavBadge>}
           </Link>
           <Link to="/user">
             {user && user.profilePicture ? (
@@ -273,13 +303,14 @@ const Nav = () => {
             Contact
           </NavLink>
           {/* Ícones de carrinho e usuário na sidebar */}
-          <Link to="/cart" onClick={closeSidebar}>
+          <Link to="/cart" onClick={closeSidebar} style={{ position: 'relative' }}>
             <SidebarIcon
               src={cartIcon}
               alt="Cart"
               isDefaultIcon={true}
               isPersonalizedImage={false}
             />
+            {cartItemCount > 0 && <SidebarBadge>{cartItemCount}</SidebarBadge>}
           </Link>
           <Link to="/user" onClick={closeSidebar}>
             {user && user.profilePicture ? (
@@ -302,18 +333,6 @@ const Nav = () => {
       </Sidebar>
     </>
   );
-};
-
-// Estilo para o badge de contagem do carrinho
-const badgeStyle = {
-  position: 'absolute',
-  top: '-5px',
-  right: '-10px',
-  backgroundColor: 'red',
-  color: 'white',
-  borderRadius: '50%',
-  padding: '2px 6px',
-  fontSize: '12px',
 };
 
 export default Nav;
