@@ -1,4 +1,99 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+// Componentes Estilizados
+
+const ShopContainer = styled.div`
+  width: 100%;
+  margin: 0;
+  padding: 80px 20px 60px; /* Ajustado para adicionar mais padding-bottom */
+  text-align: center;
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+`;
+
+const Title = styled.h1`
+  font-size: 32px; /* Reduzido de 36px */
+  font-weight: bold;
+  color: #dfa54b;
+  margin-bottom: 30px; /* Reduzido de 40px */
+`;
+
+const ProductsList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduzido de 250px */
+  gap: 30px; /* Reduzido de 40px */
+  justify-items: center;
+`;
+
+const ProductCard = styled.div`
+  background-color: #fff;
+  border: 2px solid #dfa54b; /* Borda dourada em volta das caixas */
+  border-radius: 12px; /* Reduzido de 15px */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 250px; /* Reduzido de 300px */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra nas caixas */
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(218, 165, 32, 0.7); /* Efeito de hover */
+  }
+`;
+
+const ProductImgContainer = styled.div`
+  height: 200px; /* Reduzido de 250px */
+  background-color: #f4f4f4;
+`;
+
+const ProductImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const ProductInfo = styled.div`
+  padding: 15px; /* Reduzido de 20px */
+  background-color: #fff; /* Branco para contraste com a imagem */
+`;
+
+const ProductName = styled.h2`
+  font-size: 18px; /* Reduzido de 20px */
+  font-weight: bold;
+  margin-bottom: 8px; /* Reduzido de 10px */
+  color: #333;
+`;
+
+const ProductPrice = styled.p`
+  font-size: 16px; /* Reduzido de 18px */
+  color: #666;
+`;
+
+const AddToCartButton = styled.button`
+  margin-top: 10px; /* Reduzido de 15px */
+  padding: 8px 18px; /* Reduzido de 10px 20px */
+  background-color: #dfa54b;
+  color: #000;
+  border: 2px solid transparent; /* Mantém borda transparente para manter o tamanho */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem; /* Reduzido de 1.2rem */
+  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos no tamanho total */
+
+  &:hover {
+    background-color: #fff;
+    color: #dfa54b;
+    border-color: #dfa54b; /* Altera apenas a cor da borda */
+    transform: translateY(-2px); /* Pequeno efeito de hover */
+  }
+`;
+
+// Componente Shop
 
 const Shop = () => {
   const [cart, setCart] = useState([]);
@@ -44,127 +139,31 @@ const Shop = () => {
   };
 
   return (
-    <div className="shop-container">
-      <h1 className="title">Our Products</h1>
+    <ShopContainer>
+      <Title>Our Products</Title>
 
-      <div className="products-list">
+      <ProductsList>
         {/* Exibir os produtos */}
         {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <div className="product-img-container">
-              <img
+          <ProductCard key={product.id}>
+            <ProductImgContainer>
+              <ProductImg
                 src={product.img || 'https://via.placeholder.com/150'}
                 alt={product.name}
-                className="product-img"
               />
-            </div>
-            <div className="product-info">
-              <h2 className="product-name">{product.name}</h2>
-              <p className="product-price">${product.price.toFixed(2)}</p>
-              <button
-                className="add-to-cart-button"
-                onClick={() => addToCart(product)}
-              >
+            </ProductImgContainer>
+            <ProductInfo>
+              <ProductName>{product.name}</ProductName>
+              <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
+              <AddToCartButton onClick={() => addToCart(product)}>
                 Add to Cart
-              </button>
-            </div>
-          </div>
+              </AddToCartButton>
+            </ProductInfo>
+          </ProductCard>
         ))}
-      </div>
+      </ProductsList>
 
-      <style jsx>{`
-        * {
-          font-family: 'Arial', sans-serif;
-        }
-
-        .shop-container {
-          width: 100%;
-          margin: 0;
-          padding: 100px 20px 20px;
-          text-align: center;
-          background-color: #111;
-          color: #fff;
-          min-height: 100vh;
-        }
-
-        .title {
-          font-size: 36px;
-          font-weight: bold;
-          color: #dfa54b;
-          margin-bottom: 40px;
-        }
-
-        .products-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 40px; /* Espaçamento entre as caixas */
-          justify-items: center;
-        }
-
-        .product-card {
-          background-color: #fff;
-          border: 2px solid #dfa54b; /* Borda dourada em volta das caixas */
-          border-radius: 15px;
-          overflow: hidden;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          width: 100%;
-          max-width: 300px;
-          box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra nas caixas */
-        }
-
-        .product-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 20px rgba(218, 165, 32, 0.7); /* Efeito de hover */
-        }
-
-        .product-img-container {
-          height: 250px;
-          background-color: #f4f4f4;
-        }
-
-        .product-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .product-info {
-          padding: 20px;
-          background-color: #fff; /* Branco para contraste com a imagem */
-        }
-
-        .product-name {
-          font-size: 20px;
-          font-weight: bold;
-          margin-bottom: 10px;
-          color: #333;
-        }
-
-        .product-price {
-          font-size: 18px;
-          color: #666;
-        }
-
-        .add-to-cart-button {
-          margin-top: 15px;
-          padding: 10px 20px;
-          background-color: #dfa54b;
-          color: #000;
-          border: 2px solid transparent; /* Borda transparente para manter o tamanho */
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-          box-sizing: border-box; /* Inclui borda e padding no tamanho total */
-        }
-
-        .add-to-cart-button:hover {
-          background-color: #fff;
-          color: #dfa54b;
-          border-color: #dfa54b; /* Altera apenas a cor da borda */
-          transform: translateY(-2px); /* Pequeno efeito de hover */
-        }
-      `}</style>
-    </div>
+    </ShopContainer>
   );
 };
 

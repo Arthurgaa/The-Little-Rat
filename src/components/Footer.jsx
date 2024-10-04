@@ -6,20 +6,20 @@ const FooterContainer = styled.footer`
   font-family: "Orbitron", sans-serif;
   background-color: #000;
   color: #fff;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem; /* Reduzido de 2rem 1rem */
   text-align: center;
 `;
 
 const SocialIcons = styled.div`
-  margin: 1rem 0;
+  margin: 0.5rem 0; /* Reduzido de 1rem 0 */
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem; /* Reduzido de 2rem */
 `;
 
 const IconLink = styled.a`
   color: #dfa54b;
-  font-size: 1.5rem;
+  font-size: 1.2rem; /* Reduzido de 1.5rem */
   transition: color 0.3s;
   &:hover {
     color: #fff;
@@ -29,7 +29,8 @@ const IconLink = styled.a`
 const FooterLink = styled.a`
   color: #dfa54b;
   text-decoration: none;
-  margin: 0 1rem;
+  margin: 0 0.5rem; /* Reduzido de 1rem */
+  font-size: 0.9rem; /* Adicionado para reduzir o tamanho da fonte */
   &:hover {
     color: white;
   }
@@ -37,34 +38,34 @@ const FooterLink = styled.a`
 
 const FooterBottom = styled.div`
   color: #dfa54b;
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 0.9rem; /* Reduzido de 1rem */
+  margin-top: 0.5rem; /* Reduzido de 1rem */
 `;
 
 const CheeseIconContainer = styled.div`
-  margin-top: 1rem;
+  margin-top: 0.5rem; /* Reduzido de 1rem */
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const CheeseIcon = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 40px; /* Reduzido de 50px */
+  height: 40px; /* Reduzido de 50px */
+  margin-right: 8px; /* Reduzido de 10px */
 `;
 
 const CheeseText = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem; /* Reduzido de 1.2rem */
   font-style: italic;
   color: #dfa54b;
 `;
 
 const Divider = styled.hr`
-  margin: 1.5rem auto; /* Centraliza horizontalmente */
+  margin: 1rem auto; /* Reduzido de 1.5rem */
   border: none;
-  border-top: 2px solid #fff; /* Linha branca */
-  width: 100%; /* Diminui a largura da linha */
+  border-top: 1.5px solid #fff; /* Reduzido de 2px */
+  width: 100%; 
 `;
 
 const Footer = () => {
@@ -108,5 +109,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-

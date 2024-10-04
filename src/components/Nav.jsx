@@ -4,25 +4,30 @@ import styled from 'styled-components';
 import logo from '/logo.png'; // Caminho para a imagem da logo
 import cartIcon from '/cart.png'; // Caminho para a imagem do carrinho
 import defaultUserIcon from '/user.png'; // Caminho para o ícone padrão de usuário
+import { FaBars, FaTimes } from 'react-icons/fa'; // Ícones para o menu
 
 const NavContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #000;
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+  }
 `;
 
 const Logo = styled.img`
   object-fit: contain;
-  width: 80px;
+  width: 70px;
 `;
 
 const NavLinks = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.75rem;
   justify-content: center;
   flex: 1;
 
@@ -35,8 +40,8 @@ const NavLink = styled(Link)`
   font-family: 'Orbitron', sans-serif;
   color: #dfa54b;
   text-decoration: none;
-  font-size: 1.2rem;
-  padding: 0.5rem 0.7rem;
+  font-size: 1.1rem;
+  padding: 0.4rem 0.6rem;
   position: relative;
 
   &:hover {
@@ -50,7 +55,7 @@ const NavLink = styled(Link)`
     height: 2px;
     background-color: #dfa54b;
     left: 0;
-    bottom: -6px;
+    bottom: -5px;
     transform: scaleX(0);
     transition: transform 0.3s ease;
   }
@@ -60,10 +65,14 @@ const NavLink = styled(Link)`
   }
 `;
 
-const CartIcon = styled.img`
+const CartIconWrapper = styled(Link)`
+  position: relative;
+`;
+
+const CartIconStyled = styled.img`
   vertical-align: middle;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
 
   @media (max-width: 768px) {
     display: none;
@@ -74,19 +83,18 @@ const CartIcon = styled.img`
   }
 `;
 
-const UserIcon = styled.img`
+const UserIconStyled = styled.img`
   vertical-align: middle;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%; /* Para tornar a imagem circular */
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   object-fit: cover;
 
   @media (max-width: 768px) {
     display: none;
   }
 
-  /* Aplicar hover apenas se isDefaultIcon for verdadeiro */
   &:hover {
     ${(props) =>
       props.isDefaultIcon &&
@@ -96,9 +104,26 @@ const UserIcon = styled.img`
   }
 `;
 
+// Badge para o contador no navbar
+const NavBadge = styled.div`
+  position: absolute;
+  top: -4px;
+  right: -7px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.6px 2.5px;
+  font-size: 9px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+// Hamburger Menu
 const HamburgerMenu = styled.div`
   display: none;
-  font-size: 30px;
+  font-size: 26px;
   cursor: pointer;
   color: #dfa54b;
 
@@ -107,27 +132,28 @@ const HamburgerMenu = styled.div`
   }
 `;
 
+// Sidebar
 const Sidebar = styled.div`
   position: fixed;
   top: 0;
-  right: ${(props) => (props.isOpen ? '0' : '-300px')};
-  width: 300px;
+  right: ${(props) => (props.isOpen ? '0' : '-250px')};
+  width: 250px;
   height: 100%;
   background-color: #000;
   color: #fff;
   transition: right 0.3s ease;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.75rem;
 `;
 
 const CloseButton = styled.button`
   background: none;
   color: #dfa54b;
   border: none;
-  font-size: 2rem;
+  font-size: 1.75rem;
   cursor: pointer;
   align-self: flex-end;
 `;
@@ -135,13 +161,13 @@ const CloseButton = styled.button`
 const SidebarLinks = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.75rem;
   align-items: center;
 `;
 
 const SidebarIcon = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
 
   ${(props) =>
     props.isPersonalizedImage &&
@@ -150,7 +176,6 @@ const SidebarIcon = styled.img`
     object-fit: cover;
   `}
 
-  /* Aplicar hover branco nos ícones padrão */
   &:hover {
     ${(props) =>
       props.isDefaultIcon &&
@@ -160,32 +185,16 @@ const SidebarIcon = styled.img`
   }
 `;
 
-/* Badge para o contador no navbar */
-const NavBadge = styled.div`
-  position: absolute;
-  top: -4px;
-  right: -8px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 1px 4px;
-  font-size: 10px;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-/* Badge para o contador na sidebar */
+// Badge para o contador na sidebar
 const SidebarBadge = styled.div`
   position: absolute;
   top: -4px;
-  right: -8px;
+  right: -7px;
   background-color: red;
   color: white;
   border-radius: 50%;
-  padding: 1px 4px;
-  font-size: 10px;
+  padding: 0.6px 2.5px;
+  font-size: 9px;
 
   @media (min-width: 769px) {
     display: none;
@@ -260,20 +269,20 @@ const Nav = () => {
         </NavLinks>
 
         {/* Ícones de carrinho e usuário */}
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <Link to="/cart" style={{ position: 'relative' }}>
-            <CartIcon src={cartIcon} alt="Cart" />
+        <div style={{ display: 'flex', gap: '15px', alignItems: 'center', position: 'relative' }}>
+          <CartIconWrapper to="/cart">
+            <CartIconStyled src={cartIcon} alt="Cart" />
             {cartItemCount > 0 && <NavBadge>{cartItemCount}</NavBadge>}
-          </Link>
+          </CartIconWrapper>
           <Link to="/user">
             {user && user.profilePicture ? (
-              <UserIcon
+              <UserIconStyled
                 src={user.profilePicture}
                 alt="User"
                 isDefaultIcon={false}
               />
             ) : (
-              <UserIcon
+              <UserIconStyled
                 src={defaultUserIcon}
                 alt="User"
                 isDefaultIcon={true}
@@ -283,12 +292,16 @@ const Nav = () => {
         </div>
 
         {/* Hamburger Menu para abrir a sidebar em telas menores */}
-        <HamburgerMenu onClick={toggleSidebar}>&#9776;</HamburgerMenu>
+        <HamburgerMenu onClick={toggleSidebar}>
+          <FaBars />
+        </HamburgerMenu>
       </NavContainer>
 
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen}>
-        <CloseButton onClick={toggleSidebar}>X</CloseButton>
+        <CloseButton onClick={toggleSidebar}>
+          <FaTimes />
+        </CloseButton>
         <SidebarLinks>
           <NavLink to="/" onClick={closeSidebar}>
             Home
@@ -303,15 +316,10 @@ const Nav = () => {
             Contact
           </NavLink>
           {/* Ícones de carrinho e usuário na sidebar */}
-          <Link to="/cart" onClick={closeSidebar} style={{ position: 'relative' }}>
-            <SidebarIcon
-              src={cartIcon}
-              alt="Cart"
-              isDefaultIcon={true}
-              isPersonalizedImage={false}
-            />
+          <CartIconWrapper to="/cart" onClick={closeSidebar}>
+            <SidebarIcon src={cartIcon} alt="Cart" isDefaultIcon={true} isPersonalizedImage={false} />
             {cartItemCount > 0 && <SidebarBadge>{cartItemCount}</SidebarBadge>}
-          </Link>
+          </CartIconWrapper>
           <Link to="/user" onClick={closeSidebar}>
             {user && user.profilePicture ? (
               <SidebarIcon

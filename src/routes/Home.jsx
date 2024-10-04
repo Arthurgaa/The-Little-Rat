@@ -80,8 +80,8 @@ const styles = {
     textAlign: 'center',
     backgroundColor: '#dfa54b',
     width: '100%',
-    height: '80vh',
-    marginBottom: '50px',
+    height: '80vh', // Mantém inalterado
+    marginBottom: '40px', // Reduzido de 50px
     overflow: 'hidden',
   },
   overlay: {
@@ -104,37 +104,39 @@ const styles = {
   heroText: {
     position: 'relative',
     zIndex: 2,
-    maxWidth: '600px',
+    maxWidth: '500px', // Reduzido de 600px
   },
   heroTitle: {
-    fontSize: '3rem',
+    fontSize: '2.5rem', // Reduzido de 3rem
     color: '#fff',
-    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.7)',
-    letterSpacing: '2px',
+    textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
+    letterSpacing: '1.5px', // Reduzido de 2px
+    margin: '0', // Remove margem extra
   },
   heroSubtitle: {
-    fontSize: '1.5rem',
+    fontSize: '1.2rem', // Reduzido de 1.5rem
     color: '#f0f0f0',
-    marginTop: '15px',
-    textShadow: '1px 1px 8px rgba(0, 0, 0, 0.7)',
+    marginTop: '10px', // Reduzido de 15px
+    textShadow: '1px 1px 6px rgba(0, 0, 0, 0.7)',
+    margin: '0', // Remove margem extra
   },
   bannerGallery: {
-    padding: '50px 20px',
+    padding: '30px 15px', // Reduzido de 50px 20px
     textAlign: 'center',
     backgroundColor: '#111',
-    borderRadius: '30px 30px 0 0',
+    borderRadius: '20px 20px 0 0', // Reduzido de 30px
     width: '100%',
   },
   sectionTitle: {
-    fontSize: '2.5rem',
+    fontSize: '2rem', // Reduzido de 2.5rem
     color: '#dfa54b',
-    marginBottom: '30px',
-    letterSpacing: '1.5px',
+    marginBottom: '20px', // Reduzido de 30px
+    letterSpacing: '1px', // Reduzido de 1.5px
   },
   imageContainer: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '20px',
+    gap: '15px', // Reduzido de 20px
     flexWrap: 'wrap',
   },
   bannerImage: {
@@ -150,58 +152,58 @@ const styles = {
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
   },
   shopNowSection: {
-    marginTop: '40px',
+    marginTop: '30px', // Reduzido de 40px
   },
   shopLink: {
     textDecoration: 'none',
   },
   shopButton: {
-    padding: '12px 28px',
+    padding: '10px 22px', // Reduzido de 12px 28px
     backgroundColor: '#dfa54b',
     color: '#000',
-    border: '2px solid transparent', // Adiciona uma borda transparente
+    border: '2px solid transparent', // Mantém borda transparente
     borderRadius: '5px',
     cursor: 'pointer',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem', // Reduzido de 1.2rem
     transition:
       'background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease',
-    boxSizing: 'border-box', // Garante que o padding e a borda sejam incluídos no tamanho total
+    boxSizing: 'border-box',
   },
   shopButtonHover: {
     backgroundColor: '#fff',
     color: '#dfa54b',
-    borderColor: '#dfa54b', // Altera apenas a cor da borda
+    borderColor: '#dfa54b',
     transform: 'translateY(-2px)',
   },
   logoSection: {
-    marginTop: '50px',
+    marginTop: '30px', // Reduzido de 50px
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: '50px',
+    paddingBottom: '30px', // Reduzido de 50px
   },
   logoImage: {
-    width: '150px',
-    height: '150px',
-    filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3))',
+    width: '120px', // Reduzido de 150px
+    height: '120px', // Reduzido de 150px
+    filter: 'drop-shadow(0 3px 8px rgba(0, 0, 0, 0.3))', // Reduzido de 0 4px 10px
   },
   // Media queries for responsiveness
   '@media (max-width: 768px)': {
     heroTitle: {
-      fontSize: '2rem',
+      fontSize: '1.8rem', // Reduzido de 2rem
     },
     heroSubtitle: {
-      fontSize: '1rem',
+      fontSize: '0.9rem', // Reduzido de 1rem
     },
     mainBannerImage: {
-      height: '400px',
+      height: '400px', // Mantém inalterado
     },
     bannerImage: {
-      width: '100%',
-      height: '150px',
+      width: '100%', // Mantém inalterado
+      height: '150px', // Mantém inalterado
     },
     shopButton: {
-      fontSize: '1rem',
-      padding: '10px 20px',
+      fontSize: '1rem', // Mantém inalterado
+      padding: '8px 18px', // Mantém inalterado
     },
   },
 };
