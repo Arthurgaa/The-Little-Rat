@@ -9,7 +9,7 @@ const App = () => {
   const location = useLocation();
   
   // Defina as rotas onde o botão fixo NÃO deve aparecer
-  const hideCartButtonOn = ['/login', '/cart']; // Adicione outras rotas se necessário
+  const hideCartButtonOn = ['/login', '/cart', '/register', '/contact']; // Adicione outras rotas se necessário
   
   const shouldHideCartButton = hideCartButtonOn.includes(location.pathname);
 
