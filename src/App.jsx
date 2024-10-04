@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -8,15 +8,18 @@ import FixedCartLink from './components/FixedCartLink'; // Importe o FixedCartLi
 const App = () => {
   const location = useLocation();
   
+  // Estado para controlar a abertura da sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
   // Defina as rotas onde o botão fixo NÃO deve aparecer
   const hideCartButtonOn = ['/login', '/cart', '/register', '/contact']; // Adicione outras rotas se necessário
   
-  const shouldHideCartButton = hideCartButtonOn.includes(location.pathname);
+  const shouldHideCartButton = hideCartButtonOn.includes(location.pathname) || isSidebarOpen;
 
   return (
     <div>
       {/* Componente Nav */}
-      <Nav />
+      <Nav isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       
       {/* Outlet para carregar as páginas */}
       <Outlet />
@@ -24,7 +27,7 @@ const App = () => {
       {/* Componente Footer */}
       <Footer />
 
-      {/* Botão fixo para acessar o carrinho, exceto em rotas específicas */}
+      {/* Botão fixo para acessar o carrinho, exceto em rotas específicas ou quando a sidebar está aberta */}
       {!shouldHideCartButton && (
         <FixedCartLink to="/cart" aria-label="View Cart">
           🛒 View Cart

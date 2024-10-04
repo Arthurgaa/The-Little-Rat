@@ -1,3 +1,4 @@
+// src/components/Nav.jsx
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -201,8 +202,7 @@ const SidebarBadge = styled.div`
   }
 `;
 
-const Nav = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const Nav = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [user, setUser] = useState(null); // Estado para armazenar o usuário logado
   const [cartItemCount, setCartItemCount] = useState(0); // Contador de itens no carrinho
 
