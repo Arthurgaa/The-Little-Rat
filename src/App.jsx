@@ -1,9 +1,18 @@
+// src/App.jsx
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import FixedCartLink from './components/FixedCartLink'; // Importe o FixedCartLink
 
 const App = () => {
+  const location = useLocation();
+  
+  // Defina as rotas onde o botão fixo NÃO deve aparecer
+  const hideCartButtonOn = ['/login', '/cart']; // Adicione outras rotas se necessário
+  
+  const shouldHideCartButton = hideCartButtonOn.includes(location.pathname);
+
   return (
     <div>
       {/* Componente Nav */}
@@ -14,6 +23,13 @@ const App = () => {
 
       {/* Componente Footer */}
       <Footer />
+
+      {/* Botão fixo para acessar o carrinho, exceto em rotas específicas */}
+      {!shouldHideCartButton && (
+        <FixedCartLink to="/cart" aria-label="View Cart">
+          🛒 View Cart
+        </FixedCartLink>
+      )}
 
       {/* Estilos Globais */}
       <style jsx="true" global="true">{`
@@ -46,12 +62,7 @@ const App = () => {
         }
       `}</style>
     </div>
-    
   );
 };
 
 export default App;
-
-
-
-
